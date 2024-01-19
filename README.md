@@ -63,6 +63,40 @@ In case of an error when requesting geocoding or receiving weather data, an erro
 
 The logic of the application is located in the weather file.js, which provides ease of support, expansion and testing. Any design changes can be made to the style.css file, and the overall structure of the page is in index.html .
 
+## Getting city coordinates from the Mapbox API
+A code snippet in `index.html `:
+```html
+
+<script src="weather.js"></script>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoia3VudXNhYSIsImEiOiJjbHJpZ3p4ZDkwOTVxMnFxcTk0MHJ1a2RyIn0.7ryQCkxGr0h5kz6udO7a0g';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [0, 0],
+        zoom: 0
+    });
+
+    const cityInput = document.getElementById('cityInput');
+
+    cityInput.addEventListener('keyup', async (event) => {
+    if (event.key === 'Enter') {
+        const cityName = cityInput.value.trim();
+
+        if (cityName !== '') {
+            try {
+                const wikipediaData = await fetchWikipediaData(cityName);
+                updateWikipediaUI(wikipediaData, maxWords);  
+            } catch (error) {
+                console.error('', error);
+            }
+        }
+    }
+});
+
+
+    
+</script>
 
 
 
