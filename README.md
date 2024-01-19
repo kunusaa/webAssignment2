@@ -93,27 +93,49 @@ A code snippet in `index.html `:
         }
     }
 });
-
-
-    
 </script>
+```
 
+## Getting weather data from the OpenWeatherMap API
+A code snippet in weather.js:
+```javascript
+const APIKey = '20a2cc05a0e3e06f1fff99281c82a7b4';
+async function fetchWeatherData(latitude, longitude, apiKey) {
+    const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`);
+    
+    if (!weatherResponse.ok) {
+        console.error('');
+        return null;
+    }
 
+    const weatherData = await weatherResponse.json();
+    console.log('Weather Data:', weatherData); 
+    return weatherData;
+}
+```
+## Getting interesting facts about the city from the Wikipedia API
+A code snippet in weather.js:
+```css
+sync function fetchWikipediaData(cityName) {
+    const wikipediaEndpoint = `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=true&redirects=true&titles=${cityName}&origin=*`;
 
+    try {
+        const wikipediaResponse = await fetch(wikipediaEndpoint);
 
+        if (!wikipediaResponse.ok) {
+            throw new Error('');
+        }
 
+        const wikipediaData = await wikipediaResponse.json();
 
+        const pages = wikipediaData.query.pages;
+        const firstPageId = Object.keys(pages)[0];
+        const extract = pages[firstPageId].extract;
 
+        const plainText = extract.replace(/<[^>]+>/g, '').trim();
 
-
-
-
-
-
-
-
-
-
-
-
-
+        return plainText;
+    } catch (error) {
+        console.error('', error);
+        throw error; 
+}```
