@@ -115,7 +115,7 @@ async function fetchWeatherData(latitude, longitude, apiKey) {
 ```
 ## Getting interesting facts about the city from the Wikipedia API
 A code snippet in weather.js:
-```css
+```javascript
 sync function fetchWikipediaData(cityName) {
     const wikipediaEndpoint = `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=true&redirects=true&titles=${cityName}&origin=*`;
 
